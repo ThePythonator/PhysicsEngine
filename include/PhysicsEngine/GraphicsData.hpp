@@ -1,0 +1,19 @@
+#pragma once
+
+#include "PhysicsEngineMath.hpp"
+
+namespace PhysicsEngine {
+	// Used for positioning objects for rendering
+	struct Rect {
+		vec2 position, size;
+	};
+
+	// Used to link images to a RigidBody instance
+	struct ImageRenderData {
+		// Rect from spritesheet
+		Rect source_rect;
+
+		// Relative to centre of shape (also shifted when centroid is used to shift polygon points)
+		vec2 destination;
+	};
+}
