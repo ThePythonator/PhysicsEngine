@@ -18,8 +18,7 @@ void Game::start() {
 	PhysicsEngine::Material* pTESTMAT = new PhysicsEngine::Material(0.4f, 0.3f, 0.2f, 1.0f);
 
 	PhysicsEngine::Shape* pCircle = new PhysicsEngine::Circle(inv_scale * 50.0f);
-	PhysicsEngine::RigidBody a = PhysicsEngine::RigidBody(pCircle, pSteel, inv_scale * PhysicsEngine::vec2{ 400.0f, 350.0f }, 0.0f, true);
-	manager.add_body(a);
+	uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, inv_scale * PhysicsEngine::vec2{ 400.0f, 350.0f }, 0.0f, true));
 
 	PhysicsEngine::Shape* pPoly = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 500.0f, 30.0f });
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, inv_scale * PhysicsEngine::vec2{ 400.0f, 550.0f }, 0.0f, true));
@@ -37,8 +36,13 @@ void Game::start() {
 
 	//PhysicsEngine::Shape* pTest = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 100.0f, 100.0f });
 	PhysicsEngine::Shape* pTest = new PhysicsEngine::Circle(inv_scale * 20.0f);
-	PhysicsEngine::RigidBody b = PhysicsEngine::RigidBody(pTest, pPlastic, inv_scale * PhysicsEngine::vec2{ 410.0f, -150.0f });
-	manager.add_body(b);
+	PhysicsEngine::RigidBody b = PhysicsEngine::RigidBody(pTest, pPlastic, inv_scale * PhysicsEngine::vec2{ 410.0f, 50.0f });
+	//PhysicsEngine::RigidBody b = PhysicsEngine::RigidBody(pTest, pPlastic, inv_scale * PhysicsEngine::vec2{ 410.0f, -150.0f });
+	uint16_t a_index = manager.add_body(b);
+
+	uint16_t b_index = manager.add_body(PhysicsEngine::RigidBody(pTest, pPlastic, inv_scale * PhysicsEngine::vec2{ 350.0f, 50.0f }));
+
+	uint16_t d_index = manager.add_body(PhysicsEngine::RigidBody(pTest, pPlastic, inv_scale * PhysicsEngine::vec2{ 350.0f, 200.0f }));
 
 
 	PhysicsEngine::Shape* pSmallCircle = new PhysicsEngine::Circle(inv_scale * 5.0f);
@@ -52,15 +56,21 @@ void Game::start() {
 	}
 
 	for (uint16_t i = 0; i < 40; i++) {
-		manager.add_body(PhysicsEngine::RigidBody(pSmallBox, pPlastic, inv_scale * PhysicsEngine::vec2{ -300.0f + rand() % 200, -500.0f + rand() % 200 }));
+		//manager.add_body(PhysicsEngine::RigidBody(pSmallBox, pPlastic, inv_scale * PhysicsEngine::vec2{ -300.0f + rand() % 200, -500.0f + rand() % 200 }));
 	}
 
 
 	for (uint16_t i = 0; i < 5; i++) {
-		manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, inv_scale * PhysicsEngine::vec2{ 900.0f + rand() % 200, -600.0f + rand() % 200 }));
+		//manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, inv_scale * PhysicsEngine::vec2{ 900.0f + rand() % 200, -600.0f + rand() % 200 }));
 	}
 
-	//PhysicsEngine::Constraint* pSpring = new PhysicsEngine::Spring(&a, &b, 2.0f, 10.0f, 10.0f);
+	std::vector<PhysicsEngine::RigidBody>& rb_vec = manager.get_bodies();
+
+	PhysicsEngine::Constraint* pSpring = new PhysicsEngine::Spring(&rb_vec[a_index], &rb_vec[b_index], inv_scale * 10.0f, 20.0f, 10.0f);
+	manager.add_constraint(pSpring);
+
+	pSpring = new PhysicsEngine::Spring(&rb_vec[c_index], &rb_vec[d_index], inv_scale * 20.0f, 100.0f, 10.0f);
+	manager.add_constraint(pSpring);
 }
 
 void Game::end() {
@@ -165,8 +175,6 @@ void Game::render() {
 		SDL_RenderDrawPoint(renderer, scaled_centre.x, scaled_centre.y);
 	}
 
-	Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, COLOURS::YELLOW);
-
 	for (PhysicsEngine::Constraint* constraint : manager.get_constraints()) {
 		render_constraint(constraint);
 	}
@@ -202,6 +210,8 @@ void Game::render_circle(PhysicsEngine::RigidBody& body) {
 }
 
 void Game::render_constraint(PhysicsEngine::Constraint* constraint) {
+	Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, constraint->is_broken() ? COLOURS::RED : COLOURS::YELLOW);
+
 	PhysicsEngine::vec2 scaled_centre_a = scale * constraint->a->centre;
 	PhysicsEngine::vec2 scaled_centre_b = scale * constraint->b->centre;
 

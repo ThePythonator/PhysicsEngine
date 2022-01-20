@@ -18,8 +18,14 @@ namespace PhysicsEngine {
 		// i.e. independent of number of calls to update
 	}
 
-	void PhysicsManager::add_body(RigidBody body) {
+	uint16_t PhysicsManager::add_body(RigidBody body) {
 		bodies.push_back(body);
+		return bodies.size() - 1;
+	}
+
+	uint16_t PhysicsManager::add_constraint(Constraint* constraint) {
+		constraints.push_back(constraint);
+		return constraints.size() - 1;
 	}
 
 	std::vector<RigidBody>& PhysicsManager::get_bodies() {
@@ -107,7 +113,7 @@ namespace PhysicsEngine {
 			// Gravity etc
 
 			// example, REMOVE LATER (actual gravity should be between objects)
-			body.force += body.mass * vec2{ 0.0f, 9.81f } * 1.4f * 0.1f * 100.0f;
+			body.force += body.mass * vec2{ 0.0f, 9.81f } * 0.2f;// *100.0f;
 		}
 	}
 

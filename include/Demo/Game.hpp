@@ -35,6 +35,6 @@ private:
 	float last_time = 0.0f;
 
 	// Scale is number of pixels per metre
-	float scale = 1.0f; // 100 pixel per metre = 1px per cm
+	float scale = 100.0f; // 100 pixel per metre = 1px per cm
 	float inv_scale = 1.0f / scale;
 };

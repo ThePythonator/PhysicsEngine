@@ -30,7 +30,9 @@ namespace PhysicsEngine {
 		void update(float dt);
 		void step(float dt);
 
-		void add_body(RigidBody body);
+		// Returns the index of the item in the vector
+		uint16_t add_body(RigidBody body);
+		uint16_t add_constraint(Constraint* constraint);
 		//void clear_bodies();
 
 		std::vector<RigidBody>& get_bodies();
