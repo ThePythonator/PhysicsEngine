@@ -41,7 +41,7 @@ namespace Framework {
 		// Renderer for window
 		SDL_Renderer* renderer = nullptr;
 
-		Framework::InputHandler input_handler;
+		InputHandler input_handler;
 
 	private:
 		// Returns true if successful, false if something went wrong.
