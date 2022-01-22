@@ -8,7 +8,7 @@ namespace PhysicsEngine {
 	class Constraint {
 	public:
 		Constraint();
-		Constraint(RigidBody* _a, RigidBody* _b);
+		Constraint(RigidBody* _a, RigidBody* _b, vec2 _offset_a = vec2{ 0.0f, 0.0f }, vec2 _offset_b = vec2{ 0.0f, 0.0f });
 
 		virtual vec2 calculate_force() = 0;
 		void apply_force();
@@ -17,6 +17,8 @@ namespace PhysicsEngine {
 
 		RigidBody* a = nullptr;
 		RigidBody* b = nullptr;
+		vec2 offset_a;
+		vec2 offset_b;
 
 	protected:
 		bool broken = false;
@@ -24,7 +26,7 @@ namespace PhysicsEngine {
 
 	class Spring : public Constraint {
 	public:
-		Spring(RigidBody* _a, RigidBody* _b, float _natural_length = 1.0f, float _modulus_of_elasticity = 1.0f, float max_length_factor = 2.0f);
+		Spring(RigidBody* _a, RigidBody* _b, vec2 _offset_a = vec2{ 0.0f, 0.0f }, vec2 _offset_b = vec2{ 0.0f, 0.0f }, float _natural_length = 1.0f, float _modulus_of_elasticity = 1.0f, float _max_length_factor = 2.0f);
 		vec2 calculate_force();
 
 	protected:
@@ -35,7 +37,7 @@ namespace PhysicsEngine {
 
 	class String : public Spring {
 	public:
-		String(RigidBody* _a, RigidBody* _b, float _natural_length = 1.0f, float _modulus_of_elasticity = 1.0f, float max_length_factor = 2.0f);
+		String(RigidBody* _a, RigidBody* _b, vec2 _offset_a = vec2{ 0.0f, 0.0f }, vec2 _offset_b = vec2{ 0.0f, 0.0f }, float _natural_length = 1.0f, float _modulus_of_elasticity = 1.0f, float _max_length_factor = 2.0f);
 		vec2 calculate_force();
 	};
 }

@@ -6,13 +6,15 @@ namespace PhysicsEngine {
 
 	}
 
-	Constraint::Constraint(RigidBody* _a, RigidBody* _b) {
+	Constraint::Constraint(RigidBody* _a, RigidBody* _b, vec2 _offset_a, vec2 _offset_b) {
 		a = _a;
 		b = _b;
+		offset_a = _offset_a;
+		offset_b = _offset_b;
 	}
 
 	void Constraint::apply_force() {
-		vec2 force = calculate_force();
+		vec2 force = calculate_force(); // todo: apply torque too
 		a->apply_force(force);
 		b->apply_force(-force);
 	}
@@ -23,7 +25,7 @@ namespace PhysicsEngine {
 
 	// Spring
 
-	Spring::Spring(RigidBody* _a, RigidBody* _b, float _natural_length, float _modulus_of_elasticity, float max_length_factor) : Constraint(_a, _b), natural_length(_natural_length), modulus_of_elasticity(_modulus_of_elasticity), max_length(_natural_length * std::max(max_length_factor, 1.0f)) {
+	Spring::Spring(RigidBody* _a, RigidBody* _b, vec2 _offset_a, vec2 _offset_b, float _natural_length, float _modulus_of_elasticity, float max_length_factor) : Constraint(_a, _b, _offset_a, _offset_b), natural_length(_natural_length), modulus_of_elasticity(_modulus_of_elasticity), max_length(_natural_length * std::max(max_length_factor, 1.0f)) {
 		
 	}
 
@@ -37,7 +39,7 @@ namespace PhysicsEngine {
 		}
 
 		// T = mx/L
-		vec2 a_to_b = b->centre - a->centre;
+		vec2 a_to_b = (b->centre + to_world_space(offset_b, b->get_rotation_matrix())) - (a->centre + to_world_space(offset_a, a->get_rotation_matrix()));
 		float a_to_b_length = length(a_to_b);
 
 		if (a_to_b_length > max_length) {
@@ -55,7 +57,7 @@ namespace PhysicsEngine {
 
 	// String
 
-	String::String(RigidBody* _a, RigidBody* _b, float _natural_length , float _modulus_of_elasticity, float max_length_factor) : Spring(_a, _b, _natural_length, _modulus_of_elasticity, max_length_factor) {
+	String::String(RigidBody* _a, RigidBody* _b, vec2 _offset_a, vec2 _offset_b, float _natural_length , float _modulus_of_elasticity, float max_length_factor) : Spring(_a, _b, _offset_a, _offset_b, _natural_length, _modulus_of_elasticity, max_length_factor) {
 		
 	}
 

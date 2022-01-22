@@ -8,9 +8,9 @@ void Game::start() {
 	//manager.set_constants(PhysicsEngine::PhysicsManager::Constants{ 1, 0.1f, 0.1f });
 
 	// Used to change zoom and camera 'position'
-	//float inv_scale = 0.005f;
-	//PhysicsEngine::vec2 offset{ 2.0f, 3.0f };
-	PhysicsEngine::vec2 offset;
+	float inv_scale = 0.005f;
+	PhysicsEngine::vec2 offset{ 2.0f, 3.0f };
+	//PhysicsEngine::vec2 offset;
 
 	// All sizes are in SI units (i.e. metres or kilograms etc)
 	// Material values obtained from internet
@@ -32,7 +32,7 @@ void Game::start() {
 
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 100.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ -350.0f, -250.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 800.0f, 0.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
+	uint16_t e_index = manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 800.0f, 0.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 1150.0f, -350.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
 
 
@@ -40,7 +40,7 @@ void Game::start() {
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 910.0f, 420.0f }, PhysicsEngine::deg_to_rad(-20.0f), true));
 
 	PhysicsEngine::Shape* pTri = new PhysicsEngine::Polygon({ inv_scale * PhysicsEngine::vec2{ -40.0f, -20.0f }, inv_scale * PhysicsEngine::vec2{ -40.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 40.0f, 0.0f } });
-	//manager.add_body(PhysicsEngine::RigidBody(pTri, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 405.0f, 250.0f }));
+	//uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pTri, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 650.0f, -50.0f }));
 
 	//PhysicsEngine::Shape* pTest = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 100.0f, 100.0f });
 	PhysicsEngine::Shape* pTest = new PhysicsEngine::Circle(inv_scale * 20.0f);
@@ -77,11 +77,13 @@ void Game::start() {
 
 	std::vector<PhysicsEngine::RigidBody>& rb_vec = manager.get_bodies();
 
-	PhysicsEngine::Constraint* pSpring = new PhysicsEngine::Spring(&rb_vec[a_index], &rb_vec[b_index], inv_scale * 10.0f, 20.0f, 10.0f);
-	manager.add_constraint(pSpring);
+	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[a_index], &rb_vec[b_index], inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 10.0f, 20.0f, 10.0f));
 
-	pSpring = new PhysicsEngine::Spring(&rb_vec[c_index], &rb_vec[d_index], inv_scale * 20.0f, 100.0f, 10.0f);
-	manager.add_constraint(pSpring);
+	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[c_index], &rb_vec[d_index], inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 20.0f, 100.0f, 10.0f));
+
+	uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 500.0f, 0.0f }));
+	// Note: offsets don't work properly for objects which can be rotated.
+	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 10.0f, 20.0f, 100.0f));
 }
 
 void Game::end() {
@@ -223,8 +225,8 @@ void Game::render_circle(PhysicsEngine::RigidBody& body) {
 void Game::render_constraint(PhysicsEngine::Constraint* constraint) {
 	Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, constraint->is_broken() ? COLOURS::RED : COLOURS::YELLOW);
 
-	PhysicsEngine::vec2 scaled_centre_a = scale * constraint->a->centre;
-	PhysicsEngine::vec2 scaled_centre_b = scale * constraint->b->centre;
+	PhysicsEngine::vec2 scaled_centre_a = scale * (constraint->a->centre + PhysicsEngine::to_world_space(constraint->offset_a, constraint->a->get_rotation_matrix()));
+	PhysicsEngine::vec2 scaled_centre_b = scale * (constraint->b->centre + PhysicsEngine::to_world_space(constraint->offset_b, constraint->b->get_rotation_matrix()));
 
 	SDL_RenderDrawLine(renderer, scaled_centre_a.x, scaled_centre_a.y, scaled_centre_b.x, scaled_centre_b.y);
 }

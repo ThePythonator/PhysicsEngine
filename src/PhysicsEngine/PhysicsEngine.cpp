@@ -114,6 +114,8 @@ namespace PhysicsEngine {
 
 			// example, REMOVE LATER (actual gravity should be between objects)
 			body.force += body.mass * vec2{ 0.0f, 9.81f } * 0.2f;// *100.0f;
+
+			// Note: torque should also be affected by changes in force
 		}
 	}
 
