@@ -21,7 +21,7 @@ namespace PhysicsEngine {
 		RigidBody();
 		RigidBody(Shape* _shape, Material* _material, vec2 _centre, float _angle = 0.0f, bool infinite_mass = false);
 
-		void apply_force(vec2 _force);
+		void apply_force(const vec2& _force, const vec2& vector_to_contact = vec2{ 0.0f, 0.0f });
 
 		mat22 get_rotation_matrix();
 

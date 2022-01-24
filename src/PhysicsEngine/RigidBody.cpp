@@ -36,9 +36,9 @@ namespace PhysicsEngine {
 		}
 	}
 
-	void RigidBody::apply_force(vec2 _force) {
-		force += _force; // do I also need to allow applying of rotational forces??
-		// Torque should be caused by a force...?
+	void RigidBody::apply_force(const vec2& _force, const vec2& vector_to_contact) {
+		force += _force;
+		torque += cross(vector_to_contact, _force);
 	}
 
 	mat22 RigidBody::get_rotation_matrix() {

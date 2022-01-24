@@ -81,9 +81,9 @@ void Game::start() {
 
 	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[c_index], &rb_vec[d_index], inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 20.0f, 100.0f, 10.0f));
 
-	uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 500.0f, 0.0f }));
-	// Note: offsets don't work properly for objects which can be rotated.
-	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 10.0f, 20.0f, 100.0f));
+	uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 650.0f, 300.0f }));
+	//manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 25.0f, 25.0f }, inv_scale * 10.0f, 20.0f, 100.0f));
+	manager.add_constraint(new PhysicsEngine::String(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 25.0f, -25.0f }, inv_scale * 50.0f, 50.0f, 100.0f));
 }
 
 void Game::end() {

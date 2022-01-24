@@ -15,8 +15,8 @@ namespace PhysicsEngine {
 
 	void Constraint::apply_force() {
 		vec2 force = calculate_force(); // todo: apply torque too
-		a->apply_force(force);
-		b->apply_force(-force);
+		a->apply_force(force, to_world_space(offset_a, a->get_rotation_matrix()));
+		b->apply_force(-force, to_world_space(offset_b, b->get_rotation_matrix()));
 	}
 
 	bool Constraint::is_broken() {
