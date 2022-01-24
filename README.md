@@ -2,6 +2,13 @@
 A basic physics engine supporting circles and orientable non-regular convex polygons.
 Oh, and it has undamped springs and strings.
 
+# Demo
+The demo has some basic examples, and uses SDL for rendering.
+
+*Controls:*
+- S to toggle stepping mode
+- Space to step through frames when stepping mode is activated
+
 # Interface
 Everything is in the `PhysicsEngine` namespace.
 
