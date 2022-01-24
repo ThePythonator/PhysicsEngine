@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cmath>
+#include <cfloat>
 #include <limits>
+#include <vector>
 #include <vector>
 
 #include "linalg.h"
