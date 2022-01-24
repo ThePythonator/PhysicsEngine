@@ -10,7 +10,7 @@ Everything is in the `PhysicsEngine` namespace.
 ### `PhysicsManager`:
 
 - `update(float dt)`
-:  Updates the physics (currently does the same thing as `step`
+:  Updates the physics (currently does the same thing as `step`)
 
 - `step(float dt)`
 :  Updates all `RigidBody` and `Constraint` objects tracked by the manager
