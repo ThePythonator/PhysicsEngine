@@ -69,6 +69,7 @@ void Game::start() {
 
 	for (uint16_t i = 0; i < 40; i++) {
 		manager.add_body(PhysicsEngine::RigidBody(pSmallBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ -300.0f + rand() % 200, -500.0f + rand() % 200 }));
+		//manager.get_bodies()[manager.get_bodies().size() - 1].set_layers(0); // Uncomment to set all small boxes' layers to 0 (i.e. they can't collide on any layer)
 	}
 
 	for (uint16_t i = 0; i < 5; i++) {

@@ -36,6 +36,14 @@ namespace PhysicsEngine {
 		}
 	}
 
+	void RigidBody::set_layers(uint32_t layers) {
+		_layers = layers;
+	}
+
+	uint32_t RigidBody::get_layers() {
+		return _layers;
+	}
+
 	void RigidBody::apply_force(const vec2& _force, const vec2& vector_to_contact) {
 		force += _force;
 		torque += cross(vector_to_contact, _force);

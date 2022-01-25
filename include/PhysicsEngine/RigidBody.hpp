@@ -21,6 +21,9 @@ namespace PhysicsEngine {
 		RigidBody();
 		RigidBody(Shape* _shape, Material* _material, vec2 _centre, float _angle = 0.0f, bool infinite_mass = false);
 
+		void set_layers(uint32_t layers);
+		uint32_t get_layers();
+
 		void apply_force(const vec2& _force, const vec2& vector_to_contact = vec2{ 0.0f, 0.0f });
 
 		mat22 get_rotation_matrix();
@@ -48,5 +51,7 @@ namespace PhysicsEngine {
 		mat22 cached_rotation_matrix = identity;
 
 		float last_angle = 0.0f;
+
+		uint32_t _layers = 1; // Each bit corresponds to a layer
 	};
 }

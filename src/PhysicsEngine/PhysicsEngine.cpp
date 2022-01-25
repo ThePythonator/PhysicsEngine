@@ -147,14 +147,15 @@ namespace PhysicsEngine {
 		// Detect collisions between every unique pair of objects
 		for (uint16_t i = 0; i < bodies.size(); i++) {
 			for (uint16_t j = i + 1; j < bodies.size(); j++) {
-				// todo: skip if not same layer mask
+				// Only check for collisions if they have a layer in common
+				if (bodies[i].get_layers() & bodies[j].get_layers()) {
+					// Check for collision between objects
+					CollisionInformation collision_information = detect_collision(bodies[i], bodies[j]);
 
-				// Check for collision between objects
-				CollisionInformation collision_information = detect_collision(bodies[i], bodies[j]);
-
-				if (collision_information.contact_count) {
-					// Collision occurred
-					collision_packets.push_back(CollisionPacket{ collision_information, i, j });
+					if (collision_information.contact_count) {
+						// Collision occurred
+						collision_packets.push_back(CollisionPacket{ collision_information, i, j });
+					}
 				}
 			}
 		}
