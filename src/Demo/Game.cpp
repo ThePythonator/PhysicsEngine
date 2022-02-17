@@ -21,8 +21,12 @@ void Game::start() {
 
 	PhysicsEngine::Material* pTESTMAT = new PhysicsEngine::Material(0.4f, 0.3f, 0.2f, 1.0f);
 
+	PhysicsEngine::Material* pDENSE = new PhysicsEngine::Material(0.4f, 0.3f, 0.2f, 1.0e10f);
+
 	PhysicsEngine::Shape* pCircle = new PhysicsEngine::Circle(inv_scale * 50.0f);
 	uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 350.0f }, 0.0f, true));
+
+	manager.add_body(PhysicsEngine::RigidBody(pCircle, pDENSE, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 0.0f }, 0.0f));
 
 	PhysicsEngine::Shape* pPoly = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 500.0f, 30.0f });
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 550.0f }, 0.0f, true));

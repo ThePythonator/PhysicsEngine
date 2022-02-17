@@ -113,10 +113,42 @@ namespace PhysicsEngine {
 			// Gravity etc
 
 			// example, REMOVE LATER (actual gravity should be between objects)
+#define ORBIT_GRAV_DEMO
+#ifndef ORBIT_GRAV_DEMO
+			// gravity to floor
 			body.force += body.mass * vec2{ 0.0f, 9.81f } * 0.2f;// *100.0f;
+#endif
 
 			// Note: torque should also be affected by changes in force
 		}
+			
+		// GRAVITY DEMO
+#ifdef ORBIT_GRAV_DEMO
+		static float G = 6.67430e-11f;
+
+		// Calculate gravity between every unique pair of objects
+		for (uint16_t i = 0; i < bodies.size(); i++) {
+			for (uint16_t j = i + 1; j < bodies.size(); j++) {
+
+				vec2 difference = bodies[j].centre - bodies[i].centre;
+
+				float dist_squared = length_squared(difference);
+
+				if (dist_squared != 0.0f) {
+					float force_magnitude = G * bodies[i].mass * bodies[j].mass / dist_squared;
+
+					float dist = std::sqrt(dist_squared);
+
+					//printf("%f\n", force_magnitude);
+
+					vec2 force = force_magnitude * difference / dist;
+
+					bodies[i].apply_force(force);
+					bodies[j].apply_force(-force);
+				}
+			}
+		}
+#endif // ORBIT_GRAV_DEMO
 	}
 
 	void PhysicsManager::update_constraints() {
