@@ -8,6 +8,7 @@ namespace PhysicsEngine {
 		vec2 position, size;
 	};
 
+	// No longer used
 	// Used to link images to a RigidBody instance
 	struct ImageRenderData {
 		// Rect from spritesheet

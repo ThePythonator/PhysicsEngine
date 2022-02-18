@@ -44,7 +44,8 @@ namespace PhysicsEngine {
 		float moment_of_inertia = 0.0f;
 		float inverse_moment_of_inertia = 0.0f;
 
-		std::vector<ImageRenderData> image_render_data;
+		// Render ID can be used by other code to look up what objects and corresponding offsets to render at
+		uint16_t render_id = 0;
 
 	private:
 		// Defaults to do nothing (i.e. angle = 0.0f)
