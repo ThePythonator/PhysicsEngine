@@ -1,5 +1,7 @@
 #pragma once
 
+//#define USE_FLT
+
 #include "PhysicsEngine.hpp"
 
 #include "BaseGame.hpp"
@@ -20,8 +22,8 @@ private:
 	void update(float dt);
 	void render();
 
-	void render_polygon(PhysicsEngine::RigidBody& body);
-	void render_circle(PhysicsEngine::RigidBody& body);
+	void render_polygon(PhysicsEngine::RigidBody* body);
+	void render_circle(PhysicsEngine::RigidBody* body);
 	void render_constraint(PhysicsEngine::Constraint* constraint);
 
 	void load_data();

@@ -9,8 +9,8 @@ void Game::start() {
 
 	// Used to change zoom and camera 'position'
 	float inv_scale = 0.005f;
-	PhysicsEngine::vec2 offset{ 2.0f, 3.0f };
-	//PhysicsEngine::vec2 offset;
+	PhysicsEngine::phyvec offset{ 2.0f, 3.0f };
+	//PhysicsEngine::phyvec offset;
 
 	// All sizes are in SI units (i.e. metres or kilograms etc)
 	// Material values obtained from internet
@@ -25,77 +25,77 @@ void Game::start() {
 
 	//PhysicsEngine::Shape* pCircle = new PhysicsEngine::Circle(inv_scale * 19500.0f);
 	PhysicsEngine::Shape* pCircle = new PhysicsEngine::Circle(inv_scale * 50.0f);
-	uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 350.0f }, 0.0f, true));
-	//uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 19900.0f }, 0.0f, true));
+	uint16_t c_index = manager.add_body(new PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 400.0f, 350.0f }, 0.0f, true));
+	//uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 0.0f, 19900.0f }, 0.0f, true));
 
-	//manager.add_body(PhysicsEngine::RigidBody(pCircle, pDENSE, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 0.0f }, 0.0f));
+	//manager.add_body(PhysicsEngine::RigidBody(pCircle, pDENSE, offset + inv_scale * PhysicsEngine::phyvec{ 400.0f, 0.0f }, 0.0f));
 
 
-	PhysicsEngine::Shape* pIsosceles = new PhysicsEngine::Polygon({ PhysicsEngine::vec2{ 0.0f, -30.0f } * inv_scale, PhysicsEngine::vec2{ 35.0f, 30.0f } * inv_scale, PhysicsEngine::vec2{ -35.0f, 30.0f } * inv_scale });
-	//manager.add_body(PhysicsEngine::RigidBody(pIsosceles, pTESTMAT, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, 0.0f));
+	PhysicsEngine::Shape* pIsosceles = new PhysicsEngine::Polygon({ PhysicsEngine::phyvec{ 0.0f, -30.0f } * inv_scale, PhysicsEngine::phyvec{ 35.0f, 30.0f } * inv_scale, PhysicsEngine::phyvec{ -35.0f, 30.0f } * inv_scale });
+	//manager.add_body(PhysicsEngine::RigidBody(pIsosceles, pTESTMAT, offset + inv_scale * PhysicsEngine::phyvec{ 0.0f, 0.0f }, 0.0f));
 
-	PhysicsEngine::Shape* pPoly = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 500.0f, 30.0f });
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 550.0f }, 0.0f, true));
+	PhysicsEngine::Shape* pPoly = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::phyvec{ 500.0f, 30.0f });
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 400.0f, 550.0f }, 0.0f, true));
 
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 680.0f, 740.0f }, PhysicsEngine::deg_to_rad(90.0f), true));
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ -75.0f, 470.0f }, PhysicsEngine::deg_to_rad(20.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 680.0f, 740.0f }, PhysicsEngine::deg_to_rad(90.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ -75.0f, 470.0f }, PhysicsEngine::deg_to_rad(20.0f), true));
 
 	
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 100.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ -350.0f, -250.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
-	uint16_t e_index = manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 800.0f, 0.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 1150.0f, -350.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 0.0f, 100.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ -350.0f, -250.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
+	uint16_t e_index = manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 800.0f, 0.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 1150.0f, -350.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
 
 
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, -500.0f }, PhysicsEngine::deg_to_rad(10.0f), true));
-	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 910.0f, 420.0f }, PhysicsEngine::deg_to_rad(-20.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 0.0f, -500.0f }, PhysicsEngine::deg_to_rad(10.0f), true));
+	manager.add_body(new PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::phyvec{ 910.0f, 420.0f }, PhysicsEngine::deg_to_rad(-20.0f), true));
 
-	PhysicsEngine::Shape* pTri = new PhysicsEngine::Polygon({ inv_scale * PhysicsEngine::vec2{ -40.0f, -20.0f }, inv_scale * PhysicsEngine::vec2{ -40.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 40.0f, 0.0f } });
-	//uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pTri, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 650.0f, -50.0f }));
+	PhysicsEngine::Shape* pTri = new PhysicsEngine::Polygon({ inv_scale * PhysicsEngine::phyvec{ -40.0f, -20.0f }, inv_scale * PhysicsEngine::phyvec{ -40.0f, 0.0f }, inv_scale * PhysicsEngine::phyvec{ 40.0f, 0.0f } });
+	//uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pTri, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 650.0f, -50.0f }));
 
-	//PhysicsEngine::Shape* pTest = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 100.0f, 100.0f });
+	//PhysicsEngine::Shape* pTest = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::phyvec{ 100.0f, 100.0f });
 	PhysicsEngine::Shape* pTest = new PhysicsEngine::Circle(inv_scale * 20.0f);
-	PhysicsEngine::RigidBody b = PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 410.0f, 50.0f });
-	//PhysicsEngine::RigidBody b = PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 410.0f, -150.0f });
+	PhysicsEngine::RigidBody* b = new PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 410.0f, 50.0f });
+	//PhysicsEngine::RigidBody b = PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 410.0f, -150.0f });
 	uint16_t a_index = manager.add_body(b);
 
-	uint16_t b_index = manager.add_body(PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 350.0f, 50.0f }));
+	uint16_t b_index = manager.add_body(new PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 350.0f, 50.0f }));
 
-	uint16_t d_index = manager.add_body(PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 350.0f, 200.0f }));
+	uint16_t d_index = manager.add_body(new PhysicsEngine::RigidBody(pTest, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 350.0f, 200.0f }));
 
 
 	PhysicsEngine::Shape* pSmallCircle = new PhysicsEngine::Circle(inv_scale * 5.0f);
-	PhysicsEngine::Shape* pSmallBox = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 20.0f, 20.0f });
-	PhysicsEngine::Shape* pBigBox = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 50.0f, 50.0f });
+	PhysicsEngine::Shape* pSmallBox = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::phyvec{ 20.0f, 20.0f });
+	PhysicsEngine::Shape* pBigBox = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::phyvec{ 50.0f, 50.0f });
 
 	stepping = true;
 
 	for (uint16_t i = 0; i < 500; i++) {
-		manager.add_body(PhysicsEngine::RigidBody(pSmallCircle, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 200.0f + rand() % 400, -100.0f + rand() % 300 }));
+		manager.add_body(new PhysicsEngine::RigidBody(pSmallCircle, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 200.0f + rand() % 400, -100.0f + rand() % 300 }));
 	}
 
 	for (uint16_t i = 0; i < 50; i++) {
-		manager.add_body(PhysicsEngine::RigidBody(pSmallCircle, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ -200.0f + rand() % 300, -1500.0f + rand() % 500 }));
+		manager.add_body(new PhysicsEngine::RigidBody(pSmallCircle, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ -200.0f + rand() % 300, -1500.0f + rand() % 500 }));
 	}
 
 	for (uint16_t i = 0; i < 40; i++) {
-		manager.add_body(PhysicsEngine::RigidBody(pSmallBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ -300.0f + rand() % 200, -500.0f + rand() % 200 }));
+		manager.add_body(new PhysicsEngine::RigidBody(pSmallBox, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ -300.0f + rand() % 200, -500.0f + rand() % 200 }));
 		//manager.get_bodies()[manager.get_bodies().size() - 1].set_layers(0); // Uncomment to set all small boxes' layers to 0 (i.e. they can't collide on any layer)
 	}
 
 	for (uint16_t i = 0; i < 5; i++) {
-		manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 900.0f + rand() % 200, -600.0f + rand() % 200 }));
+		manager.add_body(new PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 900.0f + rand() % 200, -600.0f + rand() % 200 }));
 	}
 
-	std::vector<PhysicsEngine::RigidBody>& rb_vec = manager.get_bodies();
+	std::vector<PhysicsEngine::RigidBody *>& rb_vec = manager.get_bodies();
 
-	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[a_index], &rb_vec[b_index], inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 10.0f, 20.0f, 10.0f));
+	manager.add_constraint(new PhysicsEngine::Spring(rb_vec[a_index], rb_vec[b_index], inv_scale * PhysicsEngine::phyvec{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::phyvec{ 0.0f, 0.0f }, inv_scale * 10.0f, 20.0f, 10.0f));
 
-	manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[c_index], &rb_vec[d_index], inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, inv_scale * 20.0f, 100.0f, 10.0f));
+	manager.add_constraint(new PhysicsEngine::Spring(rb_vec[c_index], rb_vec[d_index], inv_scale * PhysicsEngine::phyvec{ 0.0f, 0.0f }, inv_scale * PhysicsEngine::phyvec{ 0.0f, 0.0f }, inv_scale * 20.0f, 100.0f, 10.0f));
 
-	uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 650.0f, 300.0f }));
-	//manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 25.0f, 25.0f }, inv_scale * 10.0f, 20.0f, 100.0f));
-	manager.add_constraint(new PhysicsEngine::String(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 25.0f, -25.0f }, inv_scale * 50.0f, 50.0f, 100.0f));
+	uint16_t f_index = manager.add_body(new PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::phyvec{ 650.0f, 300.0f }));
+	//manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::phyvec{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::phyvec{ 25.0f, 25.0f }, inv_scale * 10.0f, 20.0f, 100.0f));
+	manager.add_constraint(new PhysicsEngine::String(rb_vec[e_index], rb_vec[f_index], inv_scale * PhysicsEngine::phyvec{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::phyvec{ 25.0f, -25.0f }, inv_scale * 50.0f, 50.0f, 100.0f));
 	
 }
 
@@ -181,10 +181,10 @@ void Game::update(float dt) {
 }
 
 void Game::render() {
-	for (PhysicsEngine::RigidBody& body : manager.get_bodies()) {
+	for (PhysicsEngine::RigidBody* body : manager.get_bodies()) {
 		Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, COLOURS::WHITE);
 
-		switch (body.shape->get_type()) {
+		switch (body->shape->get_type()) {
 		case PhysicsEngine::Shape::ShapeType::CIRCLE:
 			render_circle(body);
 			break;
@@ -195,7 +195,7 @@ void Game::render() {
 			break;
 		}
 
-		PhysicsEngine::vec2 scaled_centre = scale * body.centre;
+		PhysicsEngine::phyvec scaled_centre = scale * body->centre;
 
 		Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, COLOURS::RED);
 		SDL_RenderDrawPoint(renderer, scaled_centre.x, scaled_centre.y);
@@ -208,29 +208,29 @@ void Game::render() {
 	Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, COLOURS::WHITE);
 }
 
-void Game::render_polygon(PhysicsEngine::RigidBody& body) {
-	PhysicsEngine::Polygon* polygon = static_cast<PhysicsEngine::Polygon*>(body.shape);
+void Game::render_polygon(PhysicsEngine::RigidBody* body) {
+	PhysicsEngine::Polygon* polygon = static_cast<PhysicsEngine::Polygon*>(body->shape);
 
 	for (uint16_t i = 0; i < polygon->vertices.size(); i++) {
 		uint16_t next_i = i + 1 < polygon->vertices.size() ? i + 1 : 0;
 
-		PhysicsEngine::vec2 v1 = scale * PhysicsEngine::to_world_space(polygon->vertices[i], body.centre, body.get_rotation_matrix());
-		PhysicsEngine::vec2 v2 = scale * PhysicsEngine::to_world_space(polygon->vertices[next_i], body.centre, body.get_rotation_matrix());
+		PhysicsEngine::phyvec v1 = scale * PhysicsEngine::to_world_space(polygon->vertices[i], body->centre, body->get_rotation_matrix());
+		PhysicsEngine::phyvec v2 = scale * PhysicsEngine::to_world_space(polygon->vertices[next_i], body->centre, body->get_rotation_matrix());
 
 		SDL_RenderDrawLine(renderer, v1.x, v1.y, v2.x, v2.y);
 	}
 }
 
-void Game::render_circle(PhysicsEngine::RigidBody& body) {
-	PhysicsEngine::Circle* circle = static_cast<PhysicsEngine::Circle*>(body.shape);
+void Game::render_circle(PhysicsEngine::RigidBody* body) {
+	PhysicsEngine::Circle* circle = static_cast<PhysicsEngine::Circle*>(body->shape);
 
 	int scaled_radius = static_cast<int>(circle->radius * scale);
-	PhysicsEngine::vec2 scaled_centre = body.centre * scale;
+	PhysicsEngine::phyvec scaled_centre = body->centre * scale;
 
 	Framework::SDL2Extras::SDL_RenderDrawCircle(renderer, scaled_centre.x, scaled_centre.y, scaled_radius);
 
-	int x = static_cast<int>(scaled_centre.x + scaled_radius * std::cos(body.angle));
-	int y = static_cast<int>(scaled_centre.y + scaled_radius * std::sin(body.angle));
+	int x = static_cast<int>(scaled_centre.x + scaled_radius * std::cos(body->angle));
+	int y = static_cast<int>(scaled_centre.y + scaled_radius * std::sin(body->angle));
 
 	SDL_RenderDrawLine(renderer, scaled_centre.x, scaled_centre.y, x, y);
 }
@@ -238,8 +238,8 @@ void Game::render_circle(PhysicsEngine::RigidBody& body) {
 void Game::render_constraint(PhysicsEngine::Constraint* constraint) {
 	Framework::SDL2Extras::SDL_SetRenderDrawColor(renderer, constraint->is_broken() ? COLOURS::RED : COLOURS::YELLOW);
 
-	PhysicsEngine::vec2 scaled_centre_a = scale * (constraint->a->centre + PhysicsEngine::to_world_space(constraint->offset_a, constraint->a->get_rotation_matrix()));
-	PhysicsEngine::vec2 scaled_centre_b = scale * (constraint->b->centre + PhysicsEngine::to_world_space(constraint->offset_b, constraint->b->get_rotation_matrix()));
+	PhysicsEngine::phyvec scaled_centre_a = scale * (constraint->a->centre + PhysicsEngine::to_world_space(constraint->offset_a, constraint->a->get_rotation_matrix()));
+	PhysicsEngine::phyvec scaled_centre_b = scale * (constraint->b->centre + PhysicsEngine::to_world_space(constraint->offset_b, constraint->b->get_rotation_matrix()));
 
 	SDL_RenderDrawLine(renderer, scaled_centre_a.x, scaled_centre_a.y, scaled_centre_b.x, scaled_centre_b.y);
 }

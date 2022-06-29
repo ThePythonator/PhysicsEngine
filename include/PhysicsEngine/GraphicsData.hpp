@@ -5,7 +5,7 @@
 namespace PhysicsEngine {
 	// Used for positioning objects for rendering
 	struct Rect {
-		vec2 position, size;
+		phyvec position, size;
 	};
 
 	// No longer used
@@ -15,6 +15,6 @@ namespace PhysicsEngine {
 		Rect source_rect;
 
 		// Relative to centre of shape (also shifted when centroid is used to shift polygon points)
-		vec2 destination;
+		phyvec destination;
 	};
 }
