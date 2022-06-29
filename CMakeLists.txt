@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.14)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Uncomment these to put the dlls in the same directory as the executable (useful if you don't have SDL2 installed and you're building from source)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 # Uncomment if you need to do some debugging :)
 # set(CMAKE_FIND_DEBUG_MODE TRUE)
 
@@ -57,10 +61,6 @@ add_executable(${PROJECT_NAME} ${CONSOLE_FLAG} MACOSX_BUNDLE ${PROJECT_SOURCES})
 include(get_sdl2.cmake)
 
 #target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-#include_directories(${PROJECT_SOURCE_DIR}/include/PhysicsEngine)
-#include_directories(${PROJECT_SOURCE_DIR}/include/External)
-#include_directories(${PROJECT_SOURCE_DIR}/include/Demo)
 
 include_directories(${PROJECT_SOURCE_DIR}/include/Demo)
 include_directories(${PROJECT_SOURCE_DIR}/include/External)

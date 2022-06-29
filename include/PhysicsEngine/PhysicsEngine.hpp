@@ -19,7 +19,7 @@ namespace PhysicsEngine {
 			// Number of iterations shouldn't really be used (i.e. keep as 1) since it doesn't recalculate collision data
 			uint8_t iterations = 1; // increasing this may or may not make the sim work better
 			// Bias factor scales the extra impulse used for positional correction. Don't set it much higher than 0.1, otherwise too much kinetic energy is added to the system
-			float bias_factor = 0.1f;
+			float bias_factor = 0.15f;
 			// The amount of penetration we allow before applying the positional correction impulse
 			float penetration_slop = 0.005f;
 		};

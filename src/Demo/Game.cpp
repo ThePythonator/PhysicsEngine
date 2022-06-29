@@ -23,10 +23,16 @@ void Game::start() {
 
 	PhysicsEngine::Material* pDENSE = new PhysicsEngine::Material(0.4f, 0.3f, 0.2f, 1.0e10f);
 
+	//PhysicsEngine::Shape* pCircle = new PhysicsEngine::Circle(inv_scale * 19500.0f);
 	PhysicsEngine::Shape* pCircle = new PhysicsEngine::Circle(inv_scale * 50.0f);
 	uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 350.0f }, 0.0f, true));
+	//uint16_t c_index = manager.add_body(PhysicsEngine::RigidBody(pCircle, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 19900.0f }, 0.0f, true));
 
-	manager.add_body(PhysicsEngine::RigidBody(pCircle, pDENSE, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 0.0f }, 0.0f));
+	//manager.add_body(PhysicsEngine::RigidBody(pCircle, pDENSE, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 0.0f }, 0.0f));
+
+
+	PhysicsEngine::Shape* pIsosceles = new PhysicsEngine::Polygon({ PhysicsEngine::vec2{ 0.0f, -30.0f } * inv_scale, PhysicsEngine::vec2{ 35.0f, 30.0f } * inv_scale, PhysicsEngine::vec2{ -35.0f, 30.0f } * inv_scale });
+	//manager.add_body(PhysicsEngine::RigidBody(pIsosceles, pTESTMAT, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 0.0f }, 0.0f));
 
 	PhysicsEngine::Shape* pPoly = PhysicsEngine::create_rect(inv_scale * PhysicsEngine::vec2{ 500.0f, 30.0f });
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 400.0f, 550.0f }, 0.0f, true));
@@ -34,6 +40,7 @@ void Game::start() {
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 680.0f, 740.0f }, PhysicsEngine::deg_to_rad(90.0f), true));
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ -75.0f, 470.0f }, PhysicsEngine::deg_to_rad(20.0f), true));
 
+	
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 0.0f, 100.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
 	manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ -350.0f, -250.0f }, PhysicsEngine::deg_to_rad(45.0f), true));
 	uint16_t e_index = manager.add_body(PhysicsEngine::RigidBody(pPoly, pSteel, offset + inv_scale * PhysicsEngine::vec2{ 800.0f, 0.0f }, PhysicsEngine::deg_to_rad(-45.0f), true));
@@ -89,6 +96,7 @@ void Game::start() {
 	uint16_t f_index = manager.add_body(PhysicsEngine::RigidBody(pBigBox, pPlastic, offset + inv_scale * PhysicsEngine::vec2{ 650.0f, 300.0f }));
 	//manager.add_constraint(new PhysicsEngine::Spring(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 25.0f, 25.0f }, inv_scale * 10.0f, 20.0f, 100.0f));
 	manager.add_constraint(new PhysicsEngine::String(&rb_vec[e_index], &rb_vec[f_index], inv_scale * PhysicsEngine::vec2{ -220.0f, 0.0f }, inv_scale * PhysicsEngine::vec2{ 25.0f, -25.0f }, inv_scale * 50.0f, 50.0f, 100.0f));
+	
 }
 
 void Game::end() {

@@ -113,7 +113,7 @@ namespace PhysicsEngine {
 			// Gravity etc
 
 			// example, REMOVE LATER (actual gravity should be between objects)
-#define ORBIT_GRAV_DEMO
+//#define ORBIT_GRAV_DEMO
 #ifndef ORBIT_GRAV_DEMO
 			// gravity to floor
 			body.force += body.mass * vec2{ 0.0f, 9.81f } * 0.2f;// *100.0f;
