@@ -149,38 +149,39 @@ namespace PhysicsEngine {
 	void PhysicsManager::update_forces() {
 		// Could maybe allow user to specify own update function?
 		for (RigidBody* body : bodies) {
-
+			// gravity to floor
+			body->force += body->mass * phyvec{ 0.0f, 9.81f } * 0.2f;
 			// Note: torque should also be affected by changes in force
 		}
 
 		// Calculate gravity between every unique pair of objects
-		for (uint16_t i = 0; i < bodies.size(); i++) {
-			for (uint16_t j = i + 1; j < bodies.size(); j++) {
+		//for (uint16_t i = 0; i < bodies.size(); i++) {
+		//	for (uint16_t j = i + 1; j < bodies.size(); j++) {
 
-				phyvec difference = bodies[j]->centre - bodies[i]->centre;
+		//		phyvec difference = bodies[j]->centre - bodies[i]->centre;
 
-				phyflt dist_squared = length_squared(difference);
+		//		phyflt dist_squared = length_squared(difference);
 
-				if (dist_squared > 0.0) {
-					phyflt force_magnitude = gravitational_force(bodies[i]->mass, bodies[j]->mass, dist_squared, constants.gravitational_constant);
+		//		if (dist_squared > 0.0) {
+		//			phyflt force_magnitude = gravitational_force(bodies[i]->mass, bodies[j]->mass, dist_squared, constants.gravitational_constant);
 
-					phyflt dist = std::sqrt(dist_squared);
+		//			phyflt dist = std::sqrt(dist_squared);
 
-					phyvec force = force_magnitude * difference / dist;
+		//			phyvec force = force_magnitude * difference / dist;
 
-					//printf("Gravity: %f\n", force_magnitude / bodies[j].mass);
-					//printf("grav mag: %f\n", force_magnitude);
+		//			//printf("Gravity: %f\n", force_magnitude / bodies[j].mass);
+		//			//printf("grav mag: %f\n", force_magnitude);
 
 
-					/*printf("dist: %f\n", dist_squared);
-					printf("c: %f, %f\n", bodies[j].centre.x, bodies[j].centre.y);
-					printf("v: %f, %f\n", bodies[j].velocity.x, bodies[j].velocity.y);*/
+		//			/*printf("dist: %f\n", dist_squared);
+		//			printf("c: %f, %f\n", bodies[j].centre.x, bodies[j].centre.y);
+		//			printf("v: %f, %f\n", bodies[j].velocity.x, bodies[j].velocity.y);*/
 
-					bodies[i]->apply_force(force);
-					bodies[j]->apply_force(-force);
-				}
-			}
-		}
+		//			bodies[i]->apply_force(force);
+		//			bodies[j]->apply_force(-force);
+		//		}
+		//	}
+		//}
 	}
 
 	void PhysicsManager::update_constraints() {
